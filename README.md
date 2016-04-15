@@ -15,9 +15,8 @@ Game-Server cluster data.
 
 1. Modify the variable `stats_date` in `download-game-stats-data.py` to the date on which the data you want ocurred
 
-1. Run:
-  * First, run `python download-game-stats-data.py` to download the data
-    * e.g. `python download-game-stats-data.py`
+1. Run `python download-game-stats-data.py` to download the data
+  * e.g. `python download-game-stats-data.py`
 
-1. Then run `k-means-calculator.py` to calculate kmeans, store the calculated data (and/or transmit it to the server)
+1. Finally, run `k-means-calculator.py` to calculate kmeans, store the calculated data (and/or transmit it to the server)
   * e.g. `python k-means-calculator.py -st -k 2 -c "killer" ./data/data.20160414.txt`
