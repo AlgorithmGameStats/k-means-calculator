@@ -10,20 +10,14 @@ Game-Server cluster data.
 * Install dependencies via pip: `pip install -r requirements.txt`
 
 ## How to Run:
-* Modify the files `download-game-stats-data.py` and `k-means-calculator.py`
+1. Modify the files `download-game-stats-data.py` and `k-means-calculator.py` to add the correct server information, the variables below should be at the top of the file
+  * `game_server`, `game_server_user`, `game_server_password`
 
-** Do this to add the correct server information, the variables below should be at the top of the file
+1. Modify the variable `stats_date` in `download-game-stats-data.py` to the date on which the data you want ocurred
 
-** `game_server`, `game_server_user`, `game_server_password`
+1. Run:
+  * First, run `python download-game-stats-data.py` to download the data
+    * e.g. `python download-game-stats-data.py`
 
-* Modify the variable `stats_date` in `download-game-stats-data.py` to the date on which the data you want ocurred
-
-* Run:
-
-** First, run `python download-game-stats-data.py` to download the data
-
-*** e.g. `python download-game-stats-data.py`
-
-** Then run `k-means-calculator.py` to calculate kmeans, store the calculated data (and/or transmit it to the server)
-
-*** e.g. `python k-means-calculator.py -st -k 2 -c "killer" ./data/data.20160414.txt`
+1. Then run `k-means-calculator.py` to calculate kmeans, store the calculated data (and/or transmit it to the server)
+  * e.g. `python k-means-calculator.py -st -k 2 -c "killer" ./data/data.20160414.txt`
