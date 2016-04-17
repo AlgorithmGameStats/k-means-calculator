@@ -8,11 +8,11 @@ from datetime import datetime
 from dateutil import tz
 
 # Configurable Fetching
-game_server = 'http://localhost:5000'
+game_server = 'https://game.itomaldonado.com'
 game_stats_api = 'api/1.0/stats'
-game_server_user = 'something'
-game_server_password = 'something secret'
-stats_date = "04/15/2016" # format dd/mm/yyyy
+game_server_user = 'game'
+game_server_password = 'matrix'
+stats_date = "04/13/2016" # format dd/mm/yyyy
 
 
 #### Special Time converting stuff
