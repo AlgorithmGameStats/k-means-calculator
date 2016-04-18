@@ -22,7 +22,7 @@ game_clusters_api = 'api/1.0/clusters'
 game_server_user = 'something'
 game_server_password = 'something secret'
 
-def calculate_kmeans(file_name=None, class_name=None, centroids=2, save=True, transmit=False):
+def calculate_kmeans(file_name=None, class_name=None, centroids=2, save=True):
   """
   Calculate KMeans....
   """
@@ -53,11 +53,6 @@ def calculate_kmeans(file_name=None, class_name=None, centroids=2, save=True, tr
     for i in xrange(1, 5): # Save the same for each level
       save_kmeans(kmeans=k, level=i)
 
-  # If enabled, transmit
-  if transmit:
-    for i in xrange(1, 5): # Transmit the same cluster data for each level
-      transmit_kmeans(kmeans=k, level=i)
-
 def save_kmeans(kmeans=None, level=1):
   """
   Save the KMeans data as a json object ready to be sent to the server
@@ -74,41 +69,11 @@ def save_kmeans(kmeans=None, level=1):
       f.write(json.dumps(output, indent=2))
 
 
-def transmit_kmeans(kmeans=None, level=1):
-  """
-  Transmit the KMeans data as a json object to the server
-  """
-  if kmeans: # if the object is passed in
-    payload = {
-      'class_name': kmeans.class_name(),
-      'level': level,
-      'k': kmeans.k(),
-      'centroids': kmeans.centroids,
-      'clusters': kmeans.clusters
-    }
-    headers = {'Content-Type': 'application/json'}
-
-    # Make the HTTP POST request.
-    r = requests.post(
-      '{0}/{1}'.format( game_server, game_clusters_api ),
-      headers=headers,
-      json=payload,
-      auth=( game_server_user, game_server_password )
-    )
-
-    # Raise error IF bad status, else keep going...
-    r.raise_for_status()
-
-    print('Sent --> cluster:{0} - k:{1} - L:{2}'.format(payload['class_name'], payload['k'], payload['level']))
-
-
-
 if __name__ == '__main__':
   
   # Instantiate argument parser
   parser = argparse.ArgumentParser(description='Calculate KMeans from the data input')
   parser.add_argument('-s', '--save', help='Save cluster data', action='store_true', default=True)
-  parser.add_argument('-t', '--transmit', help='Transmit the results to the server', action='store_true', default=False)
   parser.add_argument('-k', help='Value of \'k\' (centroids)', required=True, type=int, default=2)
   parser.add_argument('-c', help='Class name of KMeans cluster', required=True, default='killer')
   parser.add_argument('file', help='path to the file containing list of integers', default='')
@@ -120,6 +85,5 @@ if __name__ == '__main__':
     file_name=args.file, 
     class_name=args.c.strip(), 
     centroids=args.k,
-    save=args.save,
-    transmit=args.transmit
+    save=args.save
   )
